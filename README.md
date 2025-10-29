@@ -1,4 +1,3 @@
-```markdown
 # Custom Attributes Connector
 
 This Python application processes a CSV file exported from Axonius, cleans and transforms the data, stores it in an SQLite database, generates JSON payloads for updating custom attributes on Qualys assets, and executes API calls to the Qualys platform to add, update, or remove these attributes. It handles data deduplication, grouping, splitting large batches, and retries on API errors. The application supports a dry-run mode to simulate operations without making actual API calls.
@@ -18,22 +17,54 @@ The script is designed for integrating Axonius data with Qualys, specifically fo
 ## Installation
 
 1. Clone the repository:
-   ```
-   git clone <repository-url>
-   cd <repository-directory>
-   ```
+    ```
+   # Change to your working directory where the application will run.
+   git clone https://github.com/dg-cafe/connector
+   cd connector
+
+    ```
+
 2. Install dependencies:
    ```
    pip install requests
+   
    ```
-3. Place your Axonius-exported CSV file in `./data/input.csv` (or specify via arguments).
+
+
+### Place your Axonius-exported CSV file in `./data/input.csv` (or specify via arguments).
 
 ## Usage
 
 Run the script from the command line, providing options or environment variables for configuration.
 
 ```bash
-python custom_attributes_connector.py [options]
+# python3 custom_attributes_connector.py [options]
+
+```
+
+```bash
+# Example 1) Linux/Mac Dry Run to create database for validation/review:
+
+export q_username=[your qualys userid]
+export q_password=[your qualys password]
+python3 custom_attributes_connector.py -c input.csv -a qualysapi.qg3.apps.qualys.com -f add --dry-run
+
+```
+
+```bash
+# Example 2) Linux/Mac Execution of API Calls
+
+export q_username=[your qualys userid]
+export q_password=[your qualys password]
+python3 custom_attributes_connector.py -c input.csv -a qualysapi.qg3.apps.qualys.com -f add
+
+```
+
+```bash
+# Example 3) Linux/Mac Print Help Screen.
+
+python3 custom_attributes_connector.py -h
+
 ```
 
 ### Options
