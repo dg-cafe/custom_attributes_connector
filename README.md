@@ -239,7 +239,6 @@ To view table descriptions from the script, run: `python custom_attributes_conne
 ## Logging
 
 - **Log File**: `custom_attributes_connector_log_{timestamp}.log` captures stdout/stderr.
-- **Console Output**: Start/end messages and heartbeat (every 15s). Detailed progress in log file.
 - **API Logs**: In `execution_log` column of the final database table.
 
 ## Limitations and Notes
@@ -248,10 +247,6 @@ To view table descriptions from the script, run: `python custom_attributes_conne
 - **Error Handling**: Workflow stops on critical errors; check log and database.
 - **Security**: Use environment variables for credentials.
 - **Version**: v1.0 (based on `X-Requested-With` header).
-
-## Contributing
-
-Contributions are welcome! Please submit pull requests for improvements or bug fixes.
 
 ## License
 
