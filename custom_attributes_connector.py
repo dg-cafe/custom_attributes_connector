@@ -353,17 +353,16 @@ CSV Data Contract:
 {contract_table}
 
 Examples:
+  #
+  # Note you may have python or python3 depending on your installation.
+  # 
   Linux (Bash):
-    q_csv_file=./data/input.csv q_api_fqdn=qualysapi.qg3.apps.qualys.com q_api_function=add q_username=your_username q_password=your_password python custom_attributes_connector.py
-
-  Windows (Command Prompt):
-    set q_csv_file=.\\data\\input.csv && set q_api_fqdn=qualysapi.qg3.apps.qualys.com && set q_api_function=add && set q_username=your_username && set q_password=your_password && python custom_attributes_connector.py
-
-  Windows (PowerShell):
-    $env:q_csv_file=".\\data\\input.csv"; $env:q_api_fqdn="qualysapi.qg3.apps.qualys.com"; $env:q_api_function="add"; $env:q_username="your_username"; $env:q_password="your_password"; python custom_attributes_connector.py
+    export q_username=your_username 
+    export q_password=your_password 
+    python3 custom_attributes_connector.py --csv-file input.csv --api-fqdn qualysapi.qg3.apps.qualys.com -api-function add
 
   Command-line arguments:
-    python custom_attributes_connector.py --csv-file ./data/input.csv --api-fqdn qualysapi.qg3.apps.qualys.com --api-function update
+    python3 custom_attributes_connector.py --csv-file input.csv --api-fqdn qualysapi.qg3.apps.qualys.com --api-function add
 
 Note:
   You must set q_username to your Qualys API user ID and q_password to your Qualys API password as environment variables.
