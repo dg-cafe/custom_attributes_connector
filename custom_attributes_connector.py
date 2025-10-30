@@ -1229,11 +1229,12 @@ def execute_api_calls_into_execution_log(
                 if response:
                     execution_log = response.text
                     status = response.status_code
+                    execution_log_message = re.sub(r' +', ' ', re.sub(r'[\r\n]+', '', execution_log)).strip()
                     print(f"{datetime.now():%Y-%m-%d %H:%M:%S} | "
                           f"API Call Number: {rows_inserted:>10,}, "
                           f"API Call Operation: {_q_api_function}, "
                           f"API Status: {status}. "
-                          f"Execution log: {re.sub(r' +', ' ', re.sub(r'[\r\n]+', '', execution_log)).strip()}")
+                          f"Execution log: {execution_log_message}")
 
                 cursor.execute(
                     f"INSERT INTO {new_table_name} (asset_ids, payload, payload_custom_attributes, count_asset_ids, group_number, batch_number, status, execution_log) "
@@ -1331,8 +1332,7 @@ def update_qualys_assets(_q_api_fqdn: str, _q_api_endpoint: str, _q_username: st
             response = requests.post(url, headers=headers, data=_payload)
             if response:
                 response_message = response.text
-                response_message = \
-                    f"{re.sub(r' +', ' ', re.sub(r'[\r\n]+', '', response_message).strip())}"
+                response_message = re.sub(r' +', ' ', re.sub(r'[\r\n]+', '', response_message).strip())
             else:
                 if response.status_code == 401:
                     response_message = f"Authentication Error status code: {response.status_code} - requests.post({url}, headers=headers, data=_payload)"
@@ -1470,7 +1470,5 @@ if __name__ == "__main__":
     print(f"    Input CSV File:       {q_csv_file}")
     print(f"    Output Database file: {q_database_file}")
     print(f"    Log file:             {q_log_file}")
-    #for myrow in iterate_over_csv_rows_returning_one_row_at_a_time(q_csv_file):
-        #print(myrow)
-    #    blah=1
+
 
