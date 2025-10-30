@@ -1,6 +1,6 @@
 # Custom Attributes Connector
 
-This Python application processes a CSV file exported from Axonius, cleans and transforms the data, stores it in an SQLite database, generates JSON payloads for updating custom attributes on Qualys assets, and executes API calls to the Qualys platform to add, update, or remove these attributes. It handles data deduplication, grouping, splitting large batches, and retries on API errors. The application supports a dry-run mode to simulate operations without making actual API calls.
+This Python application processes a CSV file exported from Axonius, cleans and transforms the data, stores it in an SQLite database, generates JSON payloads for updating custom attributes on Qualys assets, and executes API calls to the Qualys platform to add, update, or remove these attributes. It handles data deduplication, grouping, splitting large batches, and retries on API errors. The application supports a dry-run mode to prototype operations in database tables without making actual API calls.
 
 The script is designed for integrating Axonius data with Qualys, specifically for managing custom attributes on assets identified by Qualys IDs.
 
