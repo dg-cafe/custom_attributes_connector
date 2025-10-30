@@ -19,7 +19,7 @@ The script is designed for integrating Axonius data with Qualys, specifically fo
 1. Clone the repository:
     ```
    # Change to your working directory where the application will run.
-   git clone https://github.com/dg-cafe/connector
+   git clone https://github.com/dg-cafe/custom_attributes_connector
    cd connector
 
     ```
