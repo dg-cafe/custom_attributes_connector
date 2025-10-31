@@ -1220,7 +1220,10 @@ def execute_api_calls_into_execution_log(
                     _q_password=_q_password,
                     _q_api_fqdn=_q_api_fqdn,
                     _q_api_endpoint=_q_api_endpoint,
-                    _payload=payload)
+                    _payload=payload,
+                    _group_number=group_number,
+                    _batch_number=batch_number,
+                    _q_api_function=_q_api_function)
 
                 # Insert row with blank status and execution_log
                 status = 'none'
@@ -1267,7 +1270,9 @@ def execute_api_calls_into_execution_log(
             conn.execute("PRAGMA foreign_keys=ON")  # Re-enable foreign keys
 
 
-def update_qualys_assets(_q_api_fqdn: str, _q_api_endpoint: str, _q_username: str, _q_password: str, _payload: Dict[str, Any]) -> Response | None:
+def update_qualys_assets(
+        _q_api_fqdn: str, _q_api_endpoint: str, _q_username: str, _q_password: str,
+        _payload: Dict[str, Any], _q_api_function: str, _group_number: int, _batch_number: int) -> Response | None:
     """
     Sends a POST request to the Qualys API to update asset custom attributes using Basic authentication.
 
@@ -1277,6 +1282,10 @@ def update_qualys_assets(_q_api_fqdn: str, _q_api_endpoint: str, _q_username: st
         _q_username (str): Qualys API username.
         _q_password (str): Qualys API password.
         _payload (Dict[str, Any]): JSON-serializable dictionary containing the ServiceRequest _payload.
+        _q_api_function (str): Function add, update, remove
+        _group_number (int): group number for key/data pairs
+        _batch_number (int): batch number for key/data pairs
+
 
     Returns:
         Response | None: The HTTP response object from the Qualys API, or None if the request fails
@@ -1300,9 +1309,11 @@ def update_qualys_assets(_q_api_fqdn: str, _q_api_endpoint: str, _q_username: st
     # Create Basic authentication header
     auth_header = get_basic_auth(_q_username, _q_password)
 
+    user_agent_message = f"{x_requested_with} function={_q_api_function} group={_group_number} batch={_batch_number}"
+
     # Set headers
     headers = {
-        'User-Agent': x_requested_with,
+        'User-Agent': user_agent_message,
         'X-Requested-With': x_requested_with,
         'Content-Type': 'application/json',
         'Authorization': auth_header
