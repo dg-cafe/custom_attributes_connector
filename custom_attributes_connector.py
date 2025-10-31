@@ -10,7 +10,7 @@ import requests
 import json
 import base64
 from datetime import datetime
-from typing import Dict, Any, Tuple, List, Iterator, Optional
+from typing import Dict, Any, Tuple, List, Iterator, Optional, Union
 from requests import Response
 import time
 from contextlib import redirect_stdout, redirect_stderr
@@ -500,7 +500,7 @@ def get_config() -> tuple[Path, Path, str, str, str, str, bool]:
     return _csv_file, _db_file, _api_fqdn, _q_username, _q_password, _api_function.lower(), _dry_run
 
 
-def iterate_over_csv_rows_returning_one_row_at_a_time(file_path: str | Path) -> Iterator[Dict[str, Any]]:
+def iterate_over_csv_rows_returning_one_row_at_a_time(file_path: Union[str, Path]) -> Iterator[Dict[str, Any]]:
     file_path = Path(file_path)
     if not file_path.exists():
         raise FileNotFoundError(f"CSV file not found: {file_path}")
@@ -1272,7 +1272,7 @@ def execute_api_calls_into_execution_log(
 
 def update_qualys_assets(
         _q_api_fqdn: str, _q_api_endpoint: str, _q_username: str, _q_password: str,
-        _payload: Dict[str, Any], _q_api_function: str, _group_number: int, _batch_number: int) -> Response | None:
+        _payload: Dict[str, Any], _q_api_function: str, _group_number: int, _batch_number: int) -> Union[Response, None]:
     """
     Sends a POST request to the Qualys API to update asset custom attributes using Basic authentication.
 
@@ -1481,6 +1481,5 @@ if __name__ == "__main__":
     print(f"    Input CSV File:       {q_csv_file}")
     print(f"    Output Database file: {q_database_file}")
     print(f"    Log file:             {q_log_file}")
-
 
 
