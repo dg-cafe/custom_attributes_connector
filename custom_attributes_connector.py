@@ -1309,7 +1309,7 @@ def update_qualys_assets(
     # Create Basic authentication header
     auth_header = get_basic_auth(_q_username, _q_password)
 
-    user_agent_message = f"{x_requested_with} function={_q_api_function} group={_group_number} batch={_batch_number}"
+    user_agent_message = f"{x_requested_with} user={_q_username} function={_q_api_function} group={_group_number} batch={_batch_number}"
 
     # Set headers
     headers = {
