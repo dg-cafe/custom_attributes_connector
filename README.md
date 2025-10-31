@@ -24,7 +24,13 @@ The script is designed for integrating Axonius data with Qualys, specifically fo
 
     ```
 
-2. Install dependencies:
+    ```
+    # Optional, if you just want to get the custom_attributes_connector.py
+    curl https://raw.githubusercontent.com/dg-cafe/custom_attributes_connector/refs/heads/main/custom_attributes_connector.py > custom_attributes_connector.py
+
+    ```
+
+1. Install dependencies:
    ```
    pip install requests
    
