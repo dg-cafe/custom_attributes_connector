@@ -522,7 +522,8 @@ def iterate_over_csv_rows_returning_one_row_at_a_time(file_path: Union[str, Path
             for name in fieldnames:
                 # Remove BOM and control characters
                 cleaned_name = ''.join(char for char in name if char != '\ufeff')
-                cleaned_name = cleaned_name.strip()
+                cleaned_name_no_quote = ''.join(char for char in cleaned_name if char != '"')
+                cleaned_name = cleaned_name_no_quote.strip()
                 cleaned_fieldnames.append(cleaned_name)
 
             # Validate that all required fields from csv_data_contract exist
