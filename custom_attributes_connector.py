@@ -1302,6 +1302,7 @@ def update_qualys_assets(_q_api_fqdn: str, _q_api_endpoint: str, _q_username: st
 
     # Set headers
     headers = {
+        'User-Agent': x_requested_with,
         'X-Requested-With': x_requested_with,
         'Content-Type': 'application/json',
         'Authorization': auth_header
@@ -1469,5 +1470,6 @@ if __name__ == "__main__":
     print(f"    Input CSV File:       {q_csv_file}")
     print(f"    Output Database file: {q_database_file}")
     print(f"    Log file:             {q_log_file}")
+
 
 
