@@ -7,8 +7,7 @@ The script is designed for integrating Axonius data with Qualys, specifically fo
 ## Workflow
 The custom attributes connector workflow is depicted to demonstrate stages of transformation stored in local database for post process analysis and reporting of success/fail.
 
-
-[![](custom_attributes_connector_diagram_detailed.png)](custom_attributes_connector_diagram_detailed.png)
+[![](https://github.com/user-attachments/assets/ca05ef62-e14b-4ae0-9475-d268e401bd32)](https://github.com/user-attachments/assets/ca05ef62-e14b-4ae0-9475-d268e401bd32)
 
 
 ## Requirements
