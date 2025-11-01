@@ -4,6 +4,12 @@ This Python application processes a CSV file exported from Axonius, cleans and t
 
 The script is designed for integrating Axonius data with Qualys, specifically for managing custom attributes on assets identified by Qualys IDs.
 
+## Workflow
+The custom attributes connector workflow is depicted to demonstrate stages of transformation stored in local database for post process analysis and reporting of success/fail.
+
+
+<img src="custom_attributes_connector_diagram_detailed.png" alt="Operation of Custom Attributes Connector" width="600"/>
+
 ## Requirements
 
 - **Python Version**: Python 3.6+ (tested on 3.12.3, but compatible with earlier versions).
