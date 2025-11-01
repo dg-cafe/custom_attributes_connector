@@ -1,0 +1,46 @@
+@startuml
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam dpi 300:Check required modules\n(Import and verify all necessary modules);:Get configuration\n(Parse args, env vars for CSV, DB, API settings, dry_run);
+
+if (Configuration valid?) then (yes)
+else (no)
+  :Print usage and errors;
+  detach
+endif
+   :Initialize log file and redirect output;
+
+partition "Process Workflow" {
+  :Create axonious_data table\n(Read CSV row-by-row, clean data, insert per asset_id);
+  :Create qualys_attribute_payloads table;
+  :Populate qualys_attribute_payloads\n(Iterate axonious rows, create payload per asset_id, insert);
+  :Create qualys_attribute_payloads_duplicates\n(Select duplicates by cleaned asset_id);
+  :Create qualys_attribute_payloads_clean\n(Insert non-duplicates from main table);
+  :Create qualys_attribute_payloads_grouped\n(Group by custom attributes, aggregate asset_ids, add group_number);
+  :Create qualys_attribute_payloads_split\n(Split groups exceeding max_asset_ids into batches, add batch_number);
+  :Create qualys_attribute_payloads_transformed\n(Transform payloads with actual asset_ids and attributes);
+  if (Dry run?) then (yes)
+    :Insert into execution_log with 'none' status/log;
+  else (no)
+
+    partition "Execute API Calls" {
+      while (For each transformed payload) is (yes)
+        :Update operation to add/update/remove;
+        :Send POST to Qualys API\n(With retries on 409,429,5xx);
+        if (Success (200)?) then (yes)
+        else (no)
+          if (Retries left?) then (yes)
+            :Sleep and retry;
+          else (no)
+            :Log error;
+          endif
+        endif
+        :Log status and response in execution_log;
+      endwhile (no)
+    }
+  endif
+}
+:Output results\n(Input CSV, Output DB, Log file);
+@enduml
+
